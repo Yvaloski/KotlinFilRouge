@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">My App-fil rouge</string>
+    <string name="sauvegarder">Sauvegarder</string>
+    <string name="description">Description</string>
+    <string name="prix">Prix</string>
+    <string name="sortie_initial">Sortie Initial</string>
+    <string name="titre">Titre</string>
+</resources>
