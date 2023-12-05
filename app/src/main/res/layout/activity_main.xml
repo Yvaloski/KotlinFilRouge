@@ -110,7 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:fontFamily="monospace"
-        android:text="Création d'un article"
+        android:text="@string/cr_ation_d_un_article"
         android:textColor="#01DF01"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"

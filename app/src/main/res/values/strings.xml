@@ -5,4 +5,5 @@
     <string name="prix">Prix</string>
     <string name="sortie_initial">Sortie Initial</string>
     <string name="titre">Titre</string>
+    <string name="cr_ation_d_un_article">Création d\'un article</string>
 </resources>
