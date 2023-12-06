@@ -1,119 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#0B0B0B"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <EditText
-        android:id="@+id/et_titre"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:fontFamily="monospace"
-        android:hint="@string/titre"
-        android:inputType="text"
-        android:textColor="#0CCD0C"
-        android:textColorHint="#0CCD0C"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_newArticle" />
+    <data>
+        <import type="com.example.myapp_filrouge.utils.DateConverter"/>
 
-    <EditText
-        android:id="@+id/et_description"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:fontFamily="monospace"
-        android:hint="@string/description"
-        android:inputType="text"
-        android:textColor="#0CCD0C"
-        android:textColorHint="#0CCD0C"
-        app:layout_constraintBottom_toTopOf="@+id/et_prix"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_titre" />
+        <variable
+            name="article"
+            type="com.example.myapp_filrouge.bo.Article" />
+    </data>
 
-    <EditText
-        android:id="@+id/et_prix"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:fontFamily="monospace"
-        android:hint="@string/prix"
-        android:inputType="text"
-        android:textColor="#0CCD0C"
-        android:textColorHint="#0CCD0C"
-        app:layout_constraintBottom_toTopOf="@+id/et_sortieInit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_description" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#0B0B0B"
+        tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/et_sortieInit"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:fontFamily="monospace"
-        android:hint="@string/sortie_initial"
-        android:inputType="text"
-        android:textColor="#0CCD0C"
-        android:textColorHint="#0CCD0C"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_prix" />
+        <EditText
+            android:id="@+id/et_titre"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:fontFamily="monospace"
+            android:hint="@string/titre"
+            android:inputType="text"
+            android:text="@={article.titre}"
+            android:textColor="#0CCD0C"
+            android:textColorHint="#0CCD0C"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_newArticle" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:backgroundTint="#00FAF7F7"
-        android:fontFamily="monospace"
-        android:text="@string/sauvegarder"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="#0CCD0C"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_sortieInit"
-        app:strokeColor="#0CCD0C"
-        app:strokeWidth="1dp" />
+        <EditText
+            android:id="@+id/et_description"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:fontFamily="monospace"
+            android:hint="@string/description"
+            android:inputType="text"
+            android:text="@={article.description}"
+            android:textColor="#0CCD0C"
+            android:textColorHint="#0CCD0C"
+            app:layout_constraintBottom_toTopOf="@+id/et_prix"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_titre" />
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="et_sortieInit,et_prix,et_description,et_titre" />
+        <EditText
+            android:id="@+id/et_prix"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:fontFamily="monospace"
+            android:hint="@string/prix"
+            android:inputType="text"
+            android:text="@={`` + article.prix}"
+            android:textColor="#0CCD0C"
+            android:textColorHint="#0CCD0C"
+            app:layout_constraintBottom_toTopOf="@+id/et_sortieInit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_description" />
 
-    <TextView
-        android:id="@+id/tv_newArticle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="monospace"
-        android:text="@string/cr_ation_d_un_article"
-        android:textColor="#01DF01"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/et_sortieInit"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:fontFamily="monospace"
+            android:hint="@string/sortie_initial"
+            android:inputType="text"
+            android:text="@{DateConverter.dateToSimpleString(article.dateSortie)}"
+            android:textColor="#0CCD0C"
+            android:textColorHint="#0CCD0C"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_prix" />
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:backgroundTint="#00FAF7F7"
+            android:fontFamily="monospace"
+            android:text="@string/sauvegarder"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#0CCD0C"
+            app:cornerRadius="@dimen/cardview_default_radius"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_sortieInit"
+            app:strokeColor="#0CCD0C"
+            app:strokeWidth="2dp" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="et_sortieInit,et_prix,et_description,et_titre" />
+
+        <TextView
+            android:id="@+id/tv_newArticle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="monospace"
+            android:text="@string/cr_ation_d_un_article"
+            android:textColor="#01DF01"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

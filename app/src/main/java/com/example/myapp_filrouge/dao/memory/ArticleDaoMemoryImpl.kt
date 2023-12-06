@@ -31,7 +31,16 @@ class ArticleDaoMemoryImpl : ArticleDao {
             149.99,
             "https://example.com/headphones.jpg",
             Date()
+        ),
+        Article(
+            4,
+            "",
+            "",
+            0.0,
+            "",
+            Date()
         )
+
 
     )
     }
