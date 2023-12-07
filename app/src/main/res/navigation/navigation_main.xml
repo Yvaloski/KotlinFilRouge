@@ -9,7 +9,11 @@
         android:id="@+id/detailArticleFragment"
         android:name="com.example.myapp_filrouge.fragments.DetailArticleFragment"
         android:label="fragment_detail_article"
-        tools:layout="@layout/fragment_detail_article" />
+        tools:layout="@layout/fragment_detail_article" >
+        <argument
+            android:name="article"
+            app:argType="com.example.myapp_filrouge.bo.Article" />
+    </fragment>
     <fragment
         android:id="@+id/listeArticlesFragment"
         android:name="com.example.myapp_filrouge.fragments.ListeArticlesFragment"
