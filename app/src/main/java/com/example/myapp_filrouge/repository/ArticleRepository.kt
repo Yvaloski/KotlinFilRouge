@@ -21,4 +21,7 @@ class ArticleRepository {
         return articleDAO?.addNewOne(article)
     }
 
+    fun getAll():List<Article>?{
+        return articleDAO?.selectAll()
+    }
 }
