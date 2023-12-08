@@ -1,5 +1,8 @@
 package com.example.myapp_filrouge.fragments
 
+import android.app.SearchManager
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -30,6 +33,20 @@ class DetailArticleFragment : Fragment() {
         val article = args.article
         binding.article= article
 
+        binding.tvTitreArticle.setOnClickListener{
+
+            // explicit INtent
+
+            /*Intent(Intent.ACTION_WEB_SEARCH).also {
+
+                it.putExtra(SearchManager.QUERY, "eni-shop" + binding.article.titre)
+                startActivity(it)
+            }*/
+
+            Intent(Intent.ACTION_VIEW, Uri.parse("https://google.com/search?q=eni-shop" + article.titre )).also {
+                startActivity(it)
+            }
+        }
 
     }
 
