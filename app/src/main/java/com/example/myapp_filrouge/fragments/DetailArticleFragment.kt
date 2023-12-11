@@ -35,13 +35,14 @@ class DetailArticleFragment : Fragment() {
 
         binding.tvTitreArticle.setOnClickListener{
 
-            // explicit INtent
+            // explicit Intent
 
             /*Intent(Intent.ACTION_WEB_SEARCH).also {
 
                 it.putExtra(SearchManager.QUERY, "eni-shop" + binding.article.titre)
                 startActivity(it)
             }*/
+            // implicit Intent
 
             Intent(Intent.ACTION_VIEW, Uri.parse("https://google.com/search?q=eni-shop" + article.titre )).also {
                 startActivity(it)
