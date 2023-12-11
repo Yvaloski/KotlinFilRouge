@@ -1,6 +1,7 @@
 package com.example.myapp_filrouge.utils
 
 import android.icu.text.SimpleDateFormat
+import java.text.ParseException
 import java.util.Date
 
 object DateConverter  {
@@ -17,4 +18,17 @@ object DateConverter  {
 
 
     }
+
+    @JvmStatic
+    fun stringToSimpleDate(text:String):Date{
+        try {
+            val dateFormat = SimpleDateFormat("dd/MM/yyyy")
+            val date = dateFormat.parse(text)
+            return date
+        }catch (e: ParseException){
+            return Date()
+        }
+    }
+
+
 }

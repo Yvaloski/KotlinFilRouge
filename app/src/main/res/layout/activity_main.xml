@@ -6,16 +6,17 @@
     <data>
         <import type="com.example.myapp_filrouge.utils.DateConverter"/>
 
+
         <variable
-            name="article"
-            type="com.example.myapp_filrouge.bo.Article" />
+            name="vm"
+            type="com.example.myapp_filrouge.ui.articleAdd.AjoutArticleViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#0B0B0B"
-        tools:context=".AjoutArticleActivity">
+        tools:context=".ui.articleAdd.AjoutArticleActivity">
 
         <EditText
             android:id="@+id/et_titre"
@@ -29,7 +30,7 @@
             android:fontFamily="monospace"
             android:hint="@string/titre"
             android:inputType="text"
-            android:text="@={article.titre}"
+            android:text="@={vm.titre}"
             android:textColor="#0CCD0C"
             android:textColorHint="#0CCD0C"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +50,7 @@
             android:fontFamily="monospace"
             android:hint="@string/description"
             android:inputType="text"
-            android:text="@={article.description}"
+            android:text="@={vm.description}"
             android:textColor="#0CCD0C"
             android:textColorHint="#0CCD0C"
             app:layout_constraintBottom_toTopOf="@+id/et_prix"
@@ -70,7 +71,7 @@
             android:fontFamily="monospace"
             android:hint="@string/prix"
             android:inputType="text"
-            android:text="@={`` + article.prix}"
+            android:text="@={`` + vm.prix}"
             android:textColor="#0CCD0C"
             android:textColorHint="#0CCD0C"
             app:layout_constraintBottom_toTopOf="@+id/et_sortieInit"
@@ -90,8 +91,8 @@
             android:ems="10"
             android:fontFamily="monospace"
             android:hint="@string/sortie_initial"
-            android:inputType="text"
-            android:text="@{DateConverter.dateToSimpleString(article.dateSortie)}"
+            android:inputType="date"
+            android:text="@={vm.dateSortie}"
             android:textColor="#0CCD0C"
             android:textColorHint="#0CCD0C"
             app:layout_constraintEnd_toEndOf="parent"

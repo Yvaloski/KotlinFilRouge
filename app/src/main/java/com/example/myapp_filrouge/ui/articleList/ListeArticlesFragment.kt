@@ -1,4 +1,4 @@
-package com.example.myapp_filrouge.fragments
+package com.example.myapp_filrouge.ui.articleList
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import com.example.myapp_filrouge.R
-import com.example.myapp_filrouge.bo.Article
 import com.example.myapp_filrouge.databinding.FragmentListeArticlesBinding
 import com.example.myapp_filrouge.repository.ArticleRepository
 
@@ -41,7 +39,10 @@ class ListeArticlesFragment : Fragment() {
             val article = ArticleRepository().getArticle(idArticle.toLong())
 
             if (article != null) {
-                val direction = ListeArticlesFragmentDirections.listTodetail(article)
+                val direction =
+                    ListeArticlesFragmentDirections.listTodetail(
+                        article
+                    )
                 Navigation.findNavController(view).navigate(direction)
             }
 

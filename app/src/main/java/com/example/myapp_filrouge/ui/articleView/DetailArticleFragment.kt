@@ -1,6 +1,5 @@
-package com.example.myapp_filrouge.fragments
+package com.example.myapp_filrouge.ui.articleView
 
-import android.app.SearchManager
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -9,9 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
-import com.example.myapp_filrouge.R
 import com.example.myapp_filrouge.databinding.FragmentDetailArticleBinding
-import com.example.myapp_filrouge.databinding.FragmentListeArticlesBinding
 
 class DetailArticleFragment : Fragment() {
 

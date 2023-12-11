@@ -3,8 +3,8 @@ package com.example.myapp_filrouge
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.myapp_filrouge.bo.Article
 import com.example.myapp_filrouge.databinding.ActivityHomeBinding
+import com.example.myapp_filrouge.ui.articleAdd.AjoutArticleActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 
