@@ -7,17 +7,25 @@ import com.example.myapp_filrouge.repository.ArticleRepository
 
 class ListArticleViewModel:ViewModel() {
 
+    private var articleRepository: ArticleRepository = ArticleRepository()
 
-    val listArticle = MutableLiveData<Article>()
+    var articles = MutableLiveData<List<Article>>()
 
-    fun getArticleList(): List<Article>? {
-        return ArticleRepository().getAll()
+    fun getArticleList(): MutableLiveData<List<Article>> {
+
+        articles.value = articleRepository.getAll()
+
+        return articles
+
+    }
+
+    fun getRandomArticle():Article{
+
+
+        return articles.value?.random()!!
+
     }
 
 
-    fun getRandomArticle(){
-      /*  articleId = (listArticle.valu)
-        var randomArticle = ArticleRepository().getArticle()*/
-    }
 
 }

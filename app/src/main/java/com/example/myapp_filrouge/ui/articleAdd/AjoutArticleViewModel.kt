@@ -20,10 +20,20 @@ class AjoutArticleViewModel : ViewModel() {
 
     fun addArticle() {
 
-        val article = Article(0, titre, description, prix, "", DateConverter.stringToSimpleDate(dateSortie))
+        if (titre != "" && description != "" && prix != 0.0 && dateSortie!="") {
+
+            val article = Article(
+                0,
+                titre,
+                description,
+                prix,
+                "",
+                DateConverter.stringToSimpleDate(dateSortie)
+            )
 
 
-       articleRepo.addArticle(article)
+            articleRepo.addArticle(article)
+        }
 
     }
 

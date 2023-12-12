@@ -5,16 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import com.example.myapp_filrouge.databinding.FragmentListeArticlesBinding
-import com.example.myapp_filrouge.repository.ArticleRepository
 
+import com.example.myapp_filrouge.databinding.FragmentListeArticlesBinding
+import com.example.myapp_filrouge.ui.articleList.ListArticleViewModel
+import com.example.myapp_filrouge.ui.articleList.ListeArticlesFragmentDirections
 
 class ListeArticlesFragment : Fragment() {
 
     lateinit var binding: FragmentListeArticlesBinding
+    lateinit var vm : ListArticleViewModel
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentListeArticlesBinding.inflate(layoutInflater, container, false)
@@ -24,21 +28,22 @@ class ListeArticlesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val articles = ArticleRepository().getAll()
-        var title = ""
+        vm = ViewModelProvider(this)[ListArticleViewModel::class.java]
 
-        articles?.forEach {
-            title += it.titre + "\n"
-        }.also {
-            binding.tvTitre.text = title
+        //viewLifecycleOwner à utiliser dans les fragments
+        vm.getArticleList().observe(viewLifecycleOwner){
+            var titles = ""
+
+            it.forEach {
+                titles += it.titre + "\n"
+            }.also {
+                binding.tvTitre.text = titles
+            }
         }
 
         binding.btnDetails.setOnClickListener {
-
-            var idArticle = (1..4).random()
-            val article = ArticleRepository().getArticle(idArticle.toLong())
-
-            if (article != null) {
+            var article = vm.getRandomArticle()
+            if(article != null){
                 val direction =
                     ListeArticlesFragmentDirections.listTodetail(
                         article
@@ -49,4 +54,6 @@ class ListeArticlesFragment : Fragment() {
         }
 
     }
+
+
 }
