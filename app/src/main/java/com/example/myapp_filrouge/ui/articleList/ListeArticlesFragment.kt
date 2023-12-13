@@ -1,26 +1,28 @@
 package com.example.myapp_filrouge.ui.articleList
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapp_filrouge.adapters.ArticleAdapter
+import com.example.myapp_filrouge.bo.Article
 
 import com.example.myapp_filrouge.databinding.FragmentListeArticlesBinding
-import com.example.myapp_filrouge.ui.articleList.ListArticleViewModel
-import com.example.myapp_filrouge.ui.articleList.ListeArticlesFragmentDirections
+import com.example.myapp_filrouge.ui.articleView.DetailArticleFragment
 
 class ListeArticlesFragment : Fragment() {
 
     lateinit var binding: FragmentListeArticlesBinding
-    lateinit var vm : ListArticleViewModel
+    val vm: ListArticleViewModel by viewModels { ListArticleViewModel.Factory }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentListeArticlesBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -28,32 +30,40 @@ class ListeArticlesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        vm = ViewModelProvider(this)[ListArticleViewModel::class.java]
+        val recycler = binding.rvArticleRecycler
 
-        //viewLifecycleOwner à utiliser dans les fragments
-        vm.getArticleList().observe(viewLifecycleOwner){
-            var titles = ""
+        val articleAdapter = ArticleAdapter(vm.articles) { name ->
+            val intent = Intent(view.context, DetailArticleFragment::class.java)
+            intent.putExtra("name", name)
+            startActivity(intent)
+        }
+        recycler.adapter = articleAdapter
+        recycler.layoutManager = LinearLayoutManager(view.context)
 
-            it.forEach {
-                titles += it.titre + "\n"
-            }.also {
-                binding.tvTitre.text = titles
-            }
+
+
+        vm.getArticleList().observe(viewLifecycleOwner) {
+            displayArticle(it)
         }
 
-        binding.btnDetails.setOnClickListener {
-            var article = vm.getRandomArticle()
-            if(article != null){
-                val direction =
-                    ListeArticlesFragmentDirections.listTodetail(
-                        article
-                    )
-                Navigation.findNavController(view).navigate(direction)
-            }
 
+        binding.btnFav.setOnClickListener {
+            vm.getArticleListFav().observe(viewLifecycleOwner) {
+                displayArticle(it)
+                articleAdapter.notifyDataSetChanged()
+
+            }
         }
 
     }
 
+    private fun displayArticle(articles: List<Article>) {
+        var titles = ""
+        articles.forEach {
+            titles += it.titre + "\n"
+        }.also {
+            // You can update UI or perform any other operation with the titles
 
+        }
+    }
 }

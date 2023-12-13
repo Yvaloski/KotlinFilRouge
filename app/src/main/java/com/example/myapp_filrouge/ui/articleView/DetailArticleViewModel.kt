@@ -1,4 +1,4 @@
-package com.example.myapp_filrouge.ui.articleList
+package com.example.myapp_filrouge.ui.articleView
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,38 +8,44 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.myapp_filrouge.bo.Article
 import com.example.myapp_filrouge.dao.ArticleDao
 import com.example.myapp_filrouge.db.AppDatabase
-import com.example.myapp_filrouge.repository.ArticleRepository
-import com.example.myapp_filrouge.ui.articleView.DetailArticleViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
-class ListArticleViewModel(private val articleDao: ArticleDao):ViewModel() {
+class DetailArticleViewModel(private val articleDao: ArticleDao) : ViewModel() {
+    var fav = MutableLiveData<Boolean>(false)
 
-    private var articleRepository: ArticleRepository = ArticleRepository()
 
-    fun getArticleListFav(): MutableLiveData<List<Article>> {
-        viewModelScope.launch(Dispatchers.IO) {
-            articles.postValue(articleDao.selectAll())
+    fun addArticleTofav(article: Article) {
+
+        viewModelScope.launch (Dispatchers.IO){
+            articleDao.addNewOne(article)
         }
-        return articles
-    }
-
-
-    var articles = MutableLiveData<List<Article>>()
-
-    fun getArticleList(): MutableLiveData<List<Article>> {
-
-        articles.value = articleRepository.getAll()
-
-        return articles
-
 
     }
 
-    fun getRandomArticle():Article?{
+    fun deleteArticleFav(article: Article){
+        viewModelScope.launch(Dispatchers.IO) {
+            articleDao.delete(article)
+        }
+    }
 
+    fun getArticle(id: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            articleDao.selectById(id)
+        }
+    }
 
-        return articles.value?.random()
+    fun checkArticle(id:Long){
+        viewModelScope.launch(Dispatchers.IO) {
+
+            val article = articleDao.selectById(id)
+
+            if (article != null){
+                fav.postValue(true)
+
+            }
+        }
 
     }
 
@@ -56,7 +62,7 @@ class ListArticleViewModel(private val articleDao: ArticleDao):ViewModel() {
                 val application =
                     checkNotNull(extras[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY])
 
-                return ListArticleViewModel(
+                return DetailArticleViewModel(
                     AppDatabase.getInstance(application.applicationContext).articleDAO()
                 ) as T
             }
