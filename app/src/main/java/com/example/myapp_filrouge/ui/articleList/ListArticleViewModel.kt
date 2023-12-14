@@ -10,6 +10,8 @@ import com.example.myapp_filrouge.dao.ArticleDao
 import com.example.myapp_filrouge.db.AppDatabase
 import com.example.myapp_filrouge.repository.ArticleRepository
 import com.example.myapp_filrouge.ui.articleView.DetailArticleViewModel
+import com.example.myapp_filrouge.utils.ProductService
+import com.example.myapp_filrouge.utils.ProductService.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -27,21 +29,17 @@ class ListArticleViewModel(private val articleDao: ArticleDao):ViewModel() {
 
     var articles = MutableLiveData<List<Article>>()
 
-    fun getArticleList(): MutableLiveData<List<Article>> {
+     fun getArticleList(): MutableLiveData<List<Article>> {
 
-        articles.value = articleRepository.getAll()
+        viewModelScope.launch {
+            articles.value = ProductApi.retrofitService.getProducts()
+        }
 
         return articles
 
 
     }
 
-    fun getRandomArticle():Article?{
-
-
-        return articles.value?.random()
-
-    }
 
 
     companion object {

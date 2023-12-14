@@ -12,6 +12,8 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.myapp_filrouge.databinding.FragmentDetailArticleBinding
+import com.example.myapp_filrouge.utils.ProductService
+import com.squareup.picasso.Picasso
 
 const val TAG = "DetailsArticleFr"
 
@@ -42,7 +44,10 @@ class DetailArticleFragment : Fragment() {
         vm.checkArticle(article.id)
         binding.lifecycleOwner=this
 
+        Picasso.get().load(article.urlImage).into(binding.imageView)
 
+
+        var image = binding.imageView
         binding.ckFavoris.setOnClickListener {
 
 

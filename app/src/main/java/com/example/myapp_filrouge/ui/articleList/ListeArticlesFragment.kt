@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapp_filrouge.adapters.ArticleAdapter
 import com.example.myapp_filrouge.bo.Article
@@ -30,40 +32,27 @@ class ListeArticlesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recycler = binding.rvArticleRecycler
-
-        val articleAdapter = ArticleAdapter(vm.articles) { name ->
-            val intent = Intent(view.context, DetailArticleFragment::class.java)
-            intent.putExtra("name", name)
-            startActivity(intent)
-        }
-        recycler.adapter = articleAdapter
-        recycler.layoutManager = LinearLayoutManager(view.context)
-
-
-
-        vm.getArticleList().observe(viewLifecycleOwner) {
-            displayArticle(it)
-        }
-
-
         binding.btnFav.setOnClickListener {
             vm.getArticleListFav().observe(viewLifecycleOwner) {
-                displayArticle(it)
-                articleAdapter.notifyDataSetChanged()
-
+                displayArticles(it, view)
             }
+        }
+
+        //viewLifecycleOwner à utiliser dans les fragments
+        vm.getArticleList().observe(viewLifecycleOwner) {
+            displayArticles(it, view)
         }
 
     }
 
-    private fun displayArticle(articles: List<Article>) {
-        var titles = ""
-        articles.forEach {
-            titles += it.titre + "\n"
-        }.also {
-            // You can update UI or perform any other operation with the titles
+    private fun displayArticles(articles: List<Article>, view: View) {
 
+        binding.rvArticleRecycler.adapter = ArticleAdapter(articles) {
+            val direction =
+                ListeArticlesFragmentDirections.listTodetail(it)
+            Navigation.findNavController(view).navigate(direction)
         }
+        binding.rvArticleRecycler.layoutManager = LinearLayoutManager(view.context)
+
     }
 }

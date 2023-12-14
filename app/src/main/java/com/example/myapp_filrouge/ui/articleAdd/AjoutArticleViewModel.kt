@@ -28,7 +28,7 @@ class AjoutArticleViewModel : ViewModel() {
                 description,
                 prix,
                 "",
-                DateConverter.stringToSimpleDate(dateSortie)
+               DateConverter.stringToSimpleDate(dateSortie)
             )
 
 

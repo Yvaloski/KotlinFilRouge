@@ -9,32 +9,32 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.myapp_filrouge.bo.Article
 import com.example.myapp_filrouge.databinding.ItemArticleLineBinding
 import com.example.myapp_filrouge.ui.articleList.ListeArticlesFragmentDirections
+import com.example.myapp_filrouge.utils.ProductService
+import com.squareup.picasso.Picasso
 
-class ArticleAdapter(val articleList: MutableLiveData<List<Article>>, val listener: (name :String)->Unit):
+class ArticleAdapter(val articleList: List<Article>, val listener: (article: Article) -> Unit) :
     Adapter<ArticleAdapter.ArticleVH>() {
-    class ArticleVH (val binding:ItemArticleLineBinding): RecyclerView.ViewHolder(binding.root)
+
+    class ArticleVH(val binding: ItemArticleLineBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleVH {
         val binding = ItemArticleLineBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
-            false)
-
+            false
+        )
         return ArticleVH(binding)
     }
 
-    override fun getItemCount() =articleList.value?.size!!
-
-    override fun onBindViewHolder(holder: ArticleVH, position: Int) {
-        val article = articleList.value?.get(position)
-        if (article != null) {
-            holder.binding.article = article
-            holder.itemView.setOnClickListener {
-                val action = ListeArticlesFragmentDirections.listTodetail(article)
-                holder.itemView.findNavController().navigate(action)
-            }
-        }
+    override fun getItemCount(): Int {
+        return articleList.size
     }
 
+    override fun onBindViewHolder(holder: ArticleVH, position: Int) {
+        holder.binding.article = articleList[position]
+        holder.itemView.setOnClickListener {
+            listener.invoke(articleList[position])
+        }
+    }
 
 }
